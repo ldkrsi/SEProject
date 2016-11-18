@@ -8,10 +8,12 @@
     * Google搜尋`sourcetree 安裝教學`找方法來安裝並註冊
     * Google搜尋`sourcetree github`找方法來連結SourceTree和GitHub
     * 如果你之前還沒安裝過git或sourcetree幫你裝了全新的git，那完成安裝和認證後還要git config你的name和email才可以進行`git push`的動作
-        ```
-        $ git config --global user.name "John Doe"
-        $ git config --global user.email johndoe@example.com
-        ```
+
+```
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+```
+
 * 網頁後端使用Python3 + Flask
     * 先去安裝Python3
     * 用pip安裝Flask
