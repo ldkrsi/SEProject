@@ -1,8 +1,10 @@
 # 畫面設計說明
 
-每個畫面都要顯示Menu
+每個畫面都要預留Menu空間
 
 每個表單都要可以輸入密碼
+
+嚮應式設計
 
 會用到`<input type="hidden" name="" value="">`
 
@@ -67,7 +69,7 @@
 * 乙太坊Address
 * 帳號Address
 * 論文Address
-* 表單：對方address(input text),價格
+* 表單：對方address(input text),價格(input text)
 
 ## 查看所有發出的邀請頁面
 
