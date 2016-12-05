@@ -6,10 +6,10 @@ contract Paper{
 		string hash_code;
 		uint upload_at;
 	}
-	address belong_to;
-	Info doc_info;
-	string metadata;
-	mapping(address => uint) invites;
+	address public belong_to;
+	Info public doc_info;
+	string public metadata;
+	mapping(address => uint) public invites;
 	address[] reviews;
 	modifier only_exist(){
 		if(invites[msg.sender] == 0) throw;
@@ -24,10 +24,10 @@ contract Paper{
 	}
 	function add_invite(){
 		InviteReview i = InviteReview(msg.sender);
-		if(i.get_reviewer() == belong_to){
+		if(i.reviewer() == belong_to){
 			throw;
 		}
-		if(i.get_paper() != address(this)){
+		if(i.paper() != address(this)){
 			throw;
 		}
 		invites[msg.sender] = now;
@@ -43,13 +43,13 @@ contract InviteReview{
 		bool accept;
 		uint timestamp;
 	}
-	address reviewer;
-	address sender;
-	address paper;
-	address close_from;
-	Review this_review;
-	uint value;
-	State state;
+	address public reviewer;
+	address public sender;
+	address public paper;
+	address public close_from;
+	Review public this_review;
+	uint public value;
+	State public state;
 	modifier inState(State s){
 		if(state != s) throw;
 		_;
@@ -65,15 +65,6 @@ contract InviteReview{
 	modifier only_sender_or_reviewer(){
 		if(msg.sender != sender && msg.sender != reviewer) throw;
 		_;
-	}
-	function get_reviewer() returns(address){
-		return reviewer;
-	}
-	function get_sender() returns(address){
-		return sender;
-	}
-	function get_paper() returns(address){
-		return paper;
 	}
 	function InviteReview(address r, address p){
 		if(msg.sender == r){
@@ -97,9 +88,7 @@ contract InviteReview{
 		if(state != State.Init && state != State.Ready){
 			throw;
 		}
-		if(!sender.send(this.balance)){
-			throw;
-		}
+		Account(sender).payable_port.value(this.balance)();
 		close_from = msg.sender;
 		state = State.Close;
 	}
@@ -114,9 +103,9 @@ contract InviteReview{
 }
 
 contract Account{
-	address organization;
-	address owner;
-	string metadata;
+	address public organization;
+	address public owner;
+	string public metadata;
 	address[] papers;
 	address[] invites;
 	address[] requests;
@@ -128,25 +117,26 @@ contract Account{
 		organization = msg.sender;
 		owner = a;
 	}
-	function upload_paper(string link, string hash_code, string meta) only_owner returns(address){
+	function upload_paper(string link, string hash_code, string meta) only_owner{
 		Paper p = new Paper(link, hash_code, meta);
 		papers.push(p);
-		return p;
 	}
-	function invite_review(address reviewer, address paper) only_owner payable returns(address){
+	function list_all_papers() returns(address[]){
+		return papers;
+	}
+	function invite_review(address reviewer, address paper) only_owner payable{
 		InviteReview i = new InviteReview(reviewer, paper);
 		invites.push(i);
 		i.push_money.value(msg.value)();		
-		return i;
 	}
 	function notice_reviewer(address i) only_owner{
 		InviteReview(i).connecting();
 	}
-	function append_request(){
-		if(InviteReview(msg.sender).get_reviewer() != address(this)){
-			throw;
-		}
-		requests.push(msg.sender);
+	function list_all_invites() returns(address[]){
+		return invites;
+	}
+	function list_all_requests() returns(address[]){
+		return requests;
 	}
 	function cancel_invite(address i) only_owner{
 		InviteReview(i).cancel();
@@ -154,23 +144,36 @@ contract Account{
 	function done_review(address i, bool status, string comment) only_owner{
 		InviteReview(i).done(status, comment);
 	}
-	function payable_port() payable{
-	}
 	function receive_money() only_owner{
 		if(!owner.send(this.balance)){
 			throw;
 		}
 	}
+	function show_balance() returns(uint){
+		return this.balance;
+	}
+	function payable_port() payable{
+	}
+	function append_request(){
+		if(InviteReview(msg.sender).reviewer() != address(this)){
+			throw;
+		}
+		requests.push(msg.sender);
+	}
 }
 contract VirtualOrganization{
-	mapping(address => address) account_map;
-	function my_account() returns(address){
+	mapping(address => address) public account_map;
+	address[] accounts;
+	function create_account(){
 		address a = account_map[msg.sender];
 		if(a != 0){
-			return a;
+			throw;
 		}
 		a = new Account(msg.sender);
+		accounts.push(a);
 		account_map[msg.sender] = a;
-		return a;
+	}
+	function list_all_account() returns(address[]){
+		return accounts;
 	}
 }
