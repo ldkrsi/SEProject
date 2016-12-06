@@ -1,5 +1,5 @@
 from BaseController import *
 
-@app.route('/')
-def hello_world():
-    return render_template('index.html')
+@app.route('/one')
+def function_one():
+    return 'one'
