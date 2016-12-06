@@ -1,10 +1,14 @@
 from web3 import Web3, KeepAliveRPCProvider
+import os, sys
 import json
 import time
 
-config = json.load(open('config.json','r'))
+get_file_path = lambda *res: os.path.normpath(os.path.join(os.getcwd(), os.path.dirname(__file__), *res))
+
+config = json.load(open(get_file_path('','config.json'),'r'))
 web3 = Web3(KeepAliveRPCProvider(host=config['host'], port=config['port']))
 zero = '0x0000000000000000000000000000000000000000'
+
 
 
 def send_transaction(t_hash,t_name):
@@ -46,8 +50,8 @@ class BaseModel:
 		return self.entity.address
 
 class Organization(BaseModel):
-	abi = json.load(open('contract/VirtualOrganization.abi','r'))
-	code = open('contract/VirtualOrganization.bin','r').read()
+	abi = json.load(open(get_file_path('contract','VirtualOrganization.abi'),'r'))
+	code = open(get_file_path('contract','VirtualOrganization.bin'),'r').read()
 	def get_my_account(self,user):
 		a = self.find_account(user)
 		if a is not None:
@@ -69,8 +73,8 @@ class Organization(BaseModel):
 
 
 class Account(BaseModel):
-	abi = json.load(open('contract/Account.abi','r'))
-	code = open('contract/Account.bin','r').read()
+	abi = json.load(open(get_file_path('contract','Account.abi'),'r'))
+	code = open(get_file_path('contract','Account.bin'),'r').read()
 	def __init__(self, address, user=None):
 		super().__init__(address)
 		if user is not None:
@@ -110,8 +114,8 @@ class Account(BaseModel):
 	def get_balance(self):
 		return self.read_data().show_balance()
 class Paper(BaseModel):
-	abi = json.load(open('contract/Paper.abi','r'))
-	code = open('contract/Paper.bin','r').read()
+	abi = json.load(open(get_file_path('contract','Paper.abi'),'r'))
+	code = open(get_file_path('contract','Paper.bin'),'r').read()
 	def infomation(self):
 		return {
 			'belong to': self.belog_to(),
@@ -125,8 +129,8 @@ class Paper(BaseModel):
 		return [InviteReview(i) for i in self.read_data().list_all_reviews()]
 
 class InviteReview(BaseModel):
-	abi = json.load(open('contract/InviteReview.abi','r'))
-	code = open('contract/InviteReview.bin','r').read()
+	abi = json.load(open(get_file_path('contract','InviteReview.abi'),'r'))
+	code = open(get_file_path('contract','InviteReview.bin'),'r').read()
 	def infomation(self):
 		return {
 			'review': self.read_data().this_review(),
