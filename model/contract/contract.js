@@ -35,6 +35,9 @@ contract Paper{
 	function add_review() only_exist{
 		reviews.push(msg.sender);
 	}
+	function list_all_reviews() returns(address[]){
+		return reviews;
+	}
 }
 contract InviteReview{
 	enum State{ Init, Ready, Close }
@@ -46,7 +49,7 @@ contract InviteReview{
 	address public reviewer;
 	address public sender;
 	address public paper;
-	address public close_from;
+	string public cancel_from;
 	Review public this_review;
 	uint public value;
 	State public state;
@@ -74,6 +77,7 @@ contract InviteReview{
 		paper = p;
 		reviewer = r;
 		value = 0;
+		cancel_from = '';
 		state = State.Init;
 	}
 	function push_money() only_sender inState(State.Init) payable{
@@ -89,7 +93,12 @@ contract InviteReview{
 			throw;
 		}
 		Account(sender).payable_port.value(this.balance)();
-		close_from = msg.sender;
+		if(msg.sender == sender){
+			cancel_from = 'sender';
+		}
+		else{
+			cancel_from = 'reviewer';
+		}
 		state = State.Close;
 	}
 	function done(bool a, string c) only_reviewer inState(State.Ready){

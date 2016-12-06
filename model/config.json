@@ -1,5 +1,7 @@
 {
     "account": "0x911eD990574Af0BF9C64f0C4B386B63191b3C625",
-    "organization": "0x9bd00bd380f8663d85ea7dc903331e6b7bc20615",
-    "password": "123456"
+    "host": "ohio.cs.nccu.edu.tw",
+    "organization": "0x4696ed773e8136bddb2297217ad655e30fa98bc8",
+    "password": "123456",
+    "port": "80"
 }
