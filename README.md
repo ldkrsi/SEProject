@@ -43,10 +43,9 @@ $ git config --global user.email johndoe@example.com
 
 1. 修改run geth的參數(比助教給的多一個personal)，注意preload.js的路徑，minerthreads可任意修改
 
-```
-geth --networkid 16888 --port 30303 --nodiscover --maxpeers 25 --nat "any" --rpc --rpccorsdomain "*" --rpcapi "eth,net,web3,debug,personal" --rpcaddr "0.0.0.0" --mine --minerthreads 1 --autodag --preload preload.js console
-
-```
+    ```
+    geth --networkid 16888 --port 30303 --nodiscover --maxpeers 25 --nat "any" --rpc --rpccorsdomain "*" --rpcapi "eth,net,web3,debug,personal" --rpcaddr "0.0.0.0" --mine --minerthreads 1 --autodag --preload preload.js console
+    ```
 
 2. 安裝 https://github.com/ethereum/pyethereum
 
@@ -55,14 +54,14 @@ geth --networkid 16888 --port 30303 --nodiscover --maxpeers 25 --nat "any" --rpc
 4. `sudo pip install web3`
 
 5. 修改model/config.json的內容
-```
-{
-    "account": "0x911eD990574Af0BF9C64f0C4B386B63191b3C625",
-    "host": "127.0.0.1",
-    "organization": "0x4696ed773e8136bddb2297217ad655e30fa98bc8",
-    "password": "123456",
-    "port": "8545"
-}
-```
+    ```
+    {
+        "account": "0x911eD990574Af0BF9C64f0C4B386B63191b3C625",
+        "host": "127.0.0.1",
+        "organization": "0x4696ed773e8136bddb2297217ad655e30fa98bc8",
+        "password": "123456",
+        "port": "8545"
+    }
+    ```
 
 6. 確定`http://localhost:5000/example/0x911eD990574Af0BF9C64f0C4B386B63191b3C625`有東西出來，不會出錯
