@@ -36,6 +36,7 @@ class User:
 class BaseModel:
 	def __init__(self, address):	
 		self.entity = web3.eth.contract(self.abi, code=self.code, address=address)
+	#private
 	def write_data(self, value=None):
 		if value is None:
 			return self.entity.transact({'from': self.owner.address})
@@ -43,6 +44,7 @@ class BaseModel:
 			'from': self.owner.address,
 			'value': int(value)
 		})
+	#private
 	def read_data(self):
 		return self.entity.call()
 	@property
@@ -65,6 +67,7 @@ class Organization(BaseModel):
 		if addr == zero:
 			return None
 		return Account(addr,user)
+	#private
 	def create_account(self,user):
 		token = self.entity.transact({'from': user.address}).create_account()
 		send_transaction(token, "create account")
