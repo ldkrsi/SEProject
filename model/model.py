@@ -24,7 +24,7 @@ def send_transaction(t_hash,t_name):
 	return t
 
 class User:
-	def __init__(self, address, pwd=None):
+	def __init__(self, address, pwd=None):# string address, string pwd
 		self.address = address
 		self.pwd = pwd
 		if self.pwd is not None:
@@ -34,10 +34,10 @@ class User:
 
 
 class BaseModel:
-	def __init__(self, address):	
+	def __init__(self, address): # string address
 		self.entity = web3.eth.contract(self.abi, code=self.code, address=address)
 	#private
-	def write_data(self, value=None):
+	def write_data(self, value=None): #int value
 		if value is None:
 			return self.entity.transact({'from': self.owner.address})
 		return self.entity.transact({
@@ -54,13 +54,13 @@ class BaseModel:
 class Organization(BaseModel):
 	abi = json.load(open(get_file_path('contract','VirtualOrganization.abi'),'r'))
 	code = open(get_file_path('contract','VirtualOrganization.bin'),'r').read()
-	def get_my_account(self,user):
+	def get_my_account(self,user): # User user
 		a = self.find_account(user)
 		if a is not None:
 			return a
 		self.create_account(user)
 		return self.find_account(user)
-	def find_account(self, user):
+	def find_account(self, user): # User user
 		if user is None:
 			user = defaultUser
 		addr = self.read_data().account_map(user.address)
@@ -68,7 +68,7 @@ class Organization(BaseModel):
 			return None
 		return Account(addr,user)
 	#private
-	def create_account(self,user):
+	def create_account(self,user): # User user
 		token = self.entity.transact({'from': user.address}).create_account()
 		send_transaction(token, "create account")
 	def account_list(self):
@@ -78,7 +78,7 @@ class Organization(BaseModel):
 class Account(BaseModel):
 	abi = json.load(open(get_file_path('contract','Account.abi'),'r'))
 	code = open(get_file_path('contract','Account.bin'),'r').read()
-	def __init__(self, address, user=None):
+	def __init__(self, address, user=None): #string address, User user
 		super().__init__(address)
 		if user is not None:
 			self.owner = user
@@ -88,27 +88,27 @@ class Account(BaseModel):
 			'owner': self.read_data().owner(),
 			'metadata': self.read_data().metadata(),
 		}
-	def upload_paper(self, link, hash_code, meta_data):
+	def upload_paper(self, link, hash_code, meta_data): #string link, string hash_code, string meta_data
 		token = self.write_data().upload_paper(link, hash_code, meta_data)
 		send_transaction(token,'upload paper')
 		return self.papers_list()[-1]
 	def papers_list(self):
 		return [Paper(p) for p in self.read_data().list_all_papers()]
-	def invite_review(self, reviewer, paper, value):
+	def invite_review(self, reviewer, paper, value): #Acount reviewer, Paper paper, int value(wei)
 		token1 = self.write_data(value).invite_review(reviewer.address, paper.address)
 		send_transaction(token1,'make invite')
 		i = self.invites_list()[-1]
 		token2 = self.write_data().notice_reviewer(i.address)
 		send_transaction(token2,'connect to user')
 		return i
-	def cancel_invite(self, i):
+	def cancel_invite(self, i): #InviteReview i
 		token = self.write_data().cancel_invite(i.address)
 		send_transaction(token,'cancel invite')
 	def invites_list(self):
 		return [InviteReview(i) for i in self.read_data().list_all_invites()]
 	def request_list(self):
 		return [InviteReview(i) for i in self.read_data().list_all_requests()]
-	def done_review(self, inv, accept, comment):
+	def done_review(self, inv, accept, comment): # InviteReview inv, bool accept, string comment
 		token = self.write_data().done_review(inv.address, accept, comment)
 		send_transaction(token,'done review')
 	def send_money_to_owner(self):
@@ -220,4 +220,4 @@ if __name__ == '__main__':
 	print(two.get_balance())
 	'''
 	#test4
-	print(one.papers_list()[0].review_list()[0].infomation())
+	#print(one.papers_list()[0].review_list()[0].infomation())
