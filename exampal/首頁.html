@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">項目一</a></li>
+        <li><a href="#!">項目二</a></li>
+        <li><a href="#!">項目三</a></li>
+    </ul>
+    
+    <nav>
+        <div class="nav-wrapper red accent-1">
+            <a href="#" class="brand-logo center" style="font-size: 40px;">論文發表系統</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+        </div>
+    </nav>
+    
+    <script type="text/javascript">$(".dropdown-button").dropdown();</script>
+    
+    <br><br><br>
+    
+    <div class="row l12 m12 s12">
+        <div class="col l3 m3 s3"></div>
+            <form class="col l6 m6 s6" style="font-size: 15px;">
+                <p style="font-size: 25px;">查詢帳號</p>
+                    乙太坊Address: <input type="text" id="searchaccount"><br>
+                        <input type="submit" value="查詢">
+            </form>
+    </div>
+    
+    <br><br><br>
+    
+    <div class="row l12 m12 s12">
+        <div class="col l3 m3 s3"></div>
+            <form class="col l6 m6 s6" style="font-size: 15px;">
+                <p style="font-size: 25px;">創建帳號</p>
+                    乙太坊Address: <input type="text" id="createaccount"><br>
+                    密碼: <input type="text" name="code"><br>
+                    <input type="submit" value="建立">
+            </form>
+    </div>
+    
+    <br><br><br>
+    
+    <footer>
+        <div class="footer-copyright  red accent-1">
+            <div class="container">
+                © 2016 第二組 Copyright
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
