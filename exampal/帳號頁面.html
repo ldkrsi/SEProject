@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">項目一</a></li>
+        <li><a href="#!">項目二</a></li>
+        <li><a href="#!">項目三</a></li>
+    </ul>
+    
+<div class="container">
+    
+    <nav>
+        <div class="nav-wrapper grey darken-1">
+            <a href="#" class="brand-logo center" style="font-size: 40px;">論文發表系統</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a class="dropdown-button hide-on-med-and-down" href="#!" data-activates="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+                
+                <ul id="slide-out" class="side-nav">
+                    <li><a href="#!">項目一</a></li>
+                    <li><a href="#!">項目二</a></li>
+                    <li><a href="#!">項目三</a></li>
+                </ul>
+                <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
+                
+        </div>
+    </nav>
+    
+    <script type="text/javascript">$(".dropdown-button").dropdown();</script>
+    <script>$(".button-collapse").sideNav();</script>
+    
+    <br><br><br>
+    
+    <div class="row l12 m12 s12">
+        <div class="col l3 m3 s3">
+            
+            <div class="collection center-align hide-on-med-and-down" style="font-size: 20px;">
+                <div class="collection-header grey darken-1 center-align white-text" style="font-size: 20px;">功能</div>
+                <a href="#!" class="collection-item waves-effect btn grey darken white-text">
+                    <i class="material-icons left" style="font-size: 30px;">cloud</i><b>上傳論文</b></a>
+                <a href="#!" class="collection-item waves-effect btn grey darken white-text">
+                    <i class="material-icons left" style="font-size: 30px;">assignment_ind</i><b>修改個人資料</b></a>
+                <a href="#!" class="collection-item waves-effect btn grey darken white-text">
+                    <i class="material-icons left" style="font-size: 30px;">description</i><b>論文列表</b></a>
+                <a href="#!" class="collection-item waves-effect btn grey darken white-text">
+                    <i class="material-icons left" style="font-size: 30px;">launch</i><b>發出的邀請列表</b></a>
+                <a href="#!" class="collection-item waves-effect btn grey darken white-text">
+                    <i class="material-icons left" style="font-size: 30px;">view_list</i><b>收到的邀請列表</b></a>
+            </div>
+            
+            <ul id="slide-out2" class="side-nav col l3 m3 s3 hide-on-large">
+                <li><a href="#!" style="font-size: 15px;">上傳論文</a></li>
+                <li><a href="#!" style="font-size: 15px;">修改個人資料</a></li>
+                <li><a href="#!" style="font-size: 15px;">論文列表</a></li>
+                <li><a href="#!" style="font-size: 15px;">發出的邀請列表</a></li>
+                <li><a href="#!" style="font-size: 15px;">收到的邀請列表</a></li>
+            </ul>
+            <div class="collection-header grey darken-1 center-align white-text" style="font-size: 20px;">功能
+                <a href="#" data-activates="slide-out2" class="button-collapse hide-on-large-only">
+                <i class="material-icons white-text right" style="font-size: 28px;">menu</i></a>
+            </div>
+            <script>$(".button-collapse").sideNav();</script>
+        
+        </div>
+        
+        <div class="col l9 m9 s9" style="font-size: 25px;">
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : 0X1111111111111111111111111</b></p>
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 0X2222222222222222222222222</b></p>
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;個人資料</b></p>
+        </div>
+    </div>
+    
+    
+    <br><br><br>
+    
+    <footer>
+        <div class="footer-copyright  grey darken-1 white-text right-align">
+            <div class="container">
+                © 2016 第二組 Copyright
+            </div>
+        </div>
+    </footer>
+    
+</div>
+    
+</body>
+</html>
