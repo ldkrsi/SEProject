@@ -2,6 +2,7 @@ from web3 import Web3, KeepAliveRPCProvider
 import os, sys
 import json
 import time
+import redis
 
 get_file_path = lambda *res: os.path.normpath(os.path.join(os.getcwd(), os.path.dirname(__file__), *res))
 
@@ -9,9 +10,9 @@ config = json.load(open(get_file_path('','config.json'),'r'))
 web3 = Web3(KeepAliveRPCProvider(host=config['host'], port=config['port']))
 zero = '0x0000000000000000000000000000000000000000'
 
+rds = redis.StrictRedis(host='localhost', port=6379, db=3)
 
-
-def send_transaction(t_hash,t_name):
+def send_transaction_syn(t_hash,t_name):
 	print(t_name)
 	t, counter = None, 0
 	while t is None:
@@ -22,6 +23,9 @@ def send_transaction(t_hash,t_name):
 	print()
 	print(json.dumps(t, indent=4, sort_keys=True))
 	return t
+
+def send_transaction_asyn(t_hash,t_name):
+	rds.set(str(time.time()), json.dumps([False, t_hash, t_name]))
 
 class User:
 	def __init__(self, address, pwd=None):# string address, string pwd
@@ -70,7 +74,7 @@ class Organization(BaseModel):
 	#private
 	def create_account(self,user): # User user
 		token = self.entity.transact({'from': user.address}).create_account()
-		send_transaction(token, "create account")
+		send_transaction_asyn(token, "create account")
 	def account_list(self):
 		return self.read_data().list_all_account()
 
@@ -90,30 +94,28 @@ class Account(BaseModel):
 		}
 	def upload_paper(self, link, hash_code, meta_data): #string link, string hash_code, string meta_data
 		token = self.write_data().upload_paper(link, hash_code, meta_data)
-		send_transaction(token,'upload paper')
-		return self.papers_list()[-1]
+		send_transaction_asyn(token,'upload paper')
 	def papers_list(self):
 		return [Paper(p) for p in self.read_data().list_all_papers()]
 	def invite_review(self, reviewer, paper, value): #Acount reviewer, Paper paper, int value(wei)
 		token1 = self.write_data(value).invite_review(reviewer.address, paper.address)
-		send_transaction(token1,'make invite')
+		send_transaction_syn(token1,'make invite')
 		i = self.invites_list()[-1]
 		token2 = self.write_data().notice_reviewer(i.address)
-		send_transaction(token2,'connect to user')
-		return i
+		send_transaction_asyn(token2,'connect to user')
 	def cancel_invite(self, i): #InviteReview i
 		token = self.write_data().cancel_invite(i.address)
-		send_transaction(token,'cancel invite')
+		send_transaction_asyn(token,'cancel invite')
 	def invites_list(self):
 		return [InviteReview(i) for i in self.read_data().list_all_invites()]
 	def request_list(self):
 		return [InviteReview(i) for i in self.read_data().list_all_requests()]
 	def done_review(self, inv, accept, comment): # InviteReview inv, bool accept, string comment
 		token = self.write_data().done_review(inv.address, accept, comment)
-		send_transaction(token,'done review')
+		send_transaction_asyn(token,'done review')
 	def send_money_to_owner(self):
 		token = self.write_data().receive_money()
-		send_transaction(token,'send back money')
+		send_transaction_asyn(token,'send back money')
 	def get_balance(self):
 		return self.read_data().show_balance()
 class Paper(BaseModel):
@@ -162,7 +164,7 @@ if __name__ == '__main__':
 	print(root.account_list())
 	print(one.entity.address)
 	print(two.entity.address)
-	
+	p = one.upload_paper("http://example.com","001","test")
 	#test1
 	'''
 	p = None
