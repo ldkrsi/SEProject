@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>requests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">項目一</a></li>
+        <li><a href="#!">項目二</a></li>
+        <li><a href="#!">項目三</a></li>
+    </ul>
+    
+<div class="container">
+    
+    <nav>
+        <div class="nav-wrapper grey darken-1">
+            <a href="#" class="brand-logo center" style="font-size: 40px;">論文發表系統</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a class="dropdown-button hide-on-med-and-down" href="#!" data-activates="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+                
+                <ul id="slide-out" class="side-nav">
+                    <li><a href="#!">項目一</a></li>
+                    <li><a href="#!">項目二</a></li>
+                    <li><a href="#!">項目三</a></li>
+                </ul>
+                <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
+
+        </div>
+    </nav>
+    
+    <script type="text/javascript">$(".dropdown-button").dropdown();</script>
+    <script>$(".button-collapse").sideNav();</script>
+    
+    <br><br><br>
+    
+    <div class="row">
+        <div class="l12 m12 s12">
+            <div class="col l2 m2 s2"></div>
+        
+            <div class="col l10 m10 s10" style="font-size: 25px;">
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : 0X1111111111111111111111111</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 0X2222222222222222222222222</b></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="l12 m12 s12">
+            <div class="col l2 m2 s2"></div>
+            
+            <div class="col l10 m10 s10" style="font-size: 25px;">
+                
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;收到邀請論文列表</b></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文1</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： 11111111111.com.tw</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： 111111111111111</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metedata &nbsp;&nbsp;： 11111111111111</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 邀請人Address&nbsp;&nbsp;： 11111111111111.com.tw</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 提出時間 &nbsp;&nbsp;&nbsp;： 20:30</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 審查連結 &nbsp;&nbsp;&nbsp;： 66666666666666.com.tw</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 取消邀請:
+                    <span class="input-field inline">
+                        <input id="password" type="email" class="validate">
+                            <label for="password" data-error="wrong" data-success="right">密碼</label>
+                    </span>
+                </p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">確認取消</button>
+                
+                
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文2</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： 222222222222.com.tw</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： 2222222222222222</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metedata &nbsp;&nbsp;： 222222222222222</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 邀請人Address&nbsp;&nbsp;： 2222222222222222.com.tw</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 提出時間 &nbsp;&nbsp;&nbsp;： 13:30</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 審查連結 &nbsp;&nbsp;&nbsp;： 77777777777777.com.tw</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 取消邀請:
+                <span class="input-field inline">
+                    <input id="password2" type="email" class="validate">
+                        <label for="password2" data-error="wrong" data-success="right">密碼</label>
+                        </span>
+                </p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">確認取消</button>
+                
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <br><br><br>
+    
+    <footer>
+        <div class="footer-copyright  grey darken-1 white-text right-align">
+            <div class="container">
+                © 2016 第二組 Copyright
+            </div>
+        </div>
+    </footer>
+    
+</div>
+    
+</body>
+</html>
