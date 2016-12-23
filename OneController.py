@@ -10,12 +10,12 @@ def index():
 	
 @app.route("/",methods=["POST"])
 def createOrSearch():
+	global result
 	if 'createaccount' in request.form:
 		#創帳號
 		return "2"
 	elif 'searchaccount' in request.form:
 		#找帳號
-		global result
 		result=ModelRoot.find_account(User(request.form['searchaccount']))
 		#失敗
 		if result is None:
@@ -31,7 +31,7 @@ def createOrSearch():
 #帳號頁面
 @app.route("/<address>/",methods=["GET"])
 def accountPage(address):
-	return render_template("帳號頁面.html",Address=result.infomation()['owner'],accountAddr=address)
+	return render_template("帳號頁面.html",Address=result.infomation()['owner'],accountAddr=address,personinfo=result.infomation()['metadata'])
 
 	
 #上傳論文頁面
@@ -60,7 +60,7 @@ def updatePage(address):
 def update(address):
 	try:
 		'''修改個人資料'''
-		result.infomation()['metadata']
+		result.infomation()['metadata']=request.form['personinfo']
 		
 		return redirect(url_for("accountPage",address=address))
 	except:
