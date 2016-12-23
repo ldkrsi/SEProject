@@ -67,7 +67,21 @@ def update(address):
 #論文列表頁面
 @app.route("/<address>/papers",methods=["GET"])
 def papers(address):
-	return render_template("論文列表頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
+	user=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27'));
+	
+	if len(ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).papers_list())>0:
+		p=len(ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).papers_list())-1;
+	
+	link=[]
+	hashcode=[]
+	metadata=[]
+	for i in range(p):
+		link.append(user.papers_list()[i].read_data().doc_info()[0])
+		hashcode.append(user.papers_list()[i].read_data().doc_info()[1])
+		metadata.append(user.papers_list()[i].read_data().metadata())
+	return render_template("論文列表頁面.html",Address=user.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata)
+	
+	
 
 #邀請申請頁面
 @app.route("/<address>/invite",methods=["GET"])
