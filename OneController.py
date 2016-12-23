@@ -21,45 +21,44 @@ def createOrSearch():
 			return render_template("帳號頁面.html")
 		#成功
 		else:
-			address=request.form['searchaccount']
+			EtherAddress=request.form['searchaccount']
+			address=result.address
 			return redirect(url_for("accountPage",address=address))
 
 			
 #帳號頁面
 @app.route("/<address>/",methods=["GET"])
 def accountPage(address):
-	#address=address
-	#address=ModelRoot.User.address
-	
-	return render_template("帳號頁面.html",Address=address)
+
+	return render_template("帳號頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 
 	
 #上傳論文頁面
 @app.route("/<address>/upload",methods=["GET"])
 def upload(address):
-	return render_template("上傳論文頁面.html")
+	return render_template("上傳論文頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 	
 	
 #修改個人資料頁面
 @app.route("/<address>/update",methods=["GET"])
 def update(address):
-	return render_template("修改個人資料頁面.html")
+	return render_template("修改個人資料頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 
 
 #論文列表
 @app.route("/<address>/papers",methods=["GET"])
 def papers(address):
-	return render_template("論文列表頁面.html")
+	return render_template("論文列表頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 
 #查看所有發出的邀請頁面
 @app.route("/<address>/invites",methods=["GET"])
 def invites(address):
-	return render_template("查看所有發出的邀請頁面.html")
+	return render_template("查看所有發出的邀請頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 	
 #查看所有收到的邀請頁面
 @app.route("/<address>/requests",methods=["GET"])
 def requests(address):
-	return render_template("查看所有收到的邀請頁面.html")
+	return render_template("查看所有收到的邀請頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 
 
 	
