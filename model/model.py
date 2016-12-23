@@ -166,14 +166,14 @@ if __name__ == '__main__':
 	print(two.entity.address)
 	p = one.upload_paper("http://example.com","001","test")
 	#test1
-	'''
+	print(two.owner.pwd)
 	p = None
 	if len(one.papers_list()) > 0:
 		p = one.papers_list()[0]
 	else:
-		p = one.upload_paper("http://example.com","000","test")
+		p = one.upload_paper("http://example.com","001","test")
 	print(p.infomation())
-	
+	'''
 	
 	i = one.invite_review(two, p ,'10000000000000000000')
 	print(i.infomation(), i.reviewer().address, i.sender().address, i.paper().infomation())

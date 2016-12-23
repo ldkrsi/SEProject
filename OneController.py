@@ -23,6 +23,7 @@ def createOrSearch():
 		else:
 			EtherAddress=request.form['searchaccount']
 			address=result.address
+			#address=result.owner.pwd
 			return redirect(url_for("accountPage",address=address))
 
 			
@@ -40,12 +41,14 @@ def uploadPage(address):
 @app.route("/<address>/upload",methods=["POST"])
 def upload(address):
 	try:
-		ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27','12345678')).upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
-	
+		if request.form["password"]==User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27','12345678').pwd:
+			ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27','12345678')).upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
+			return render_template("單頁論文頁面.html")
+		else:
+			return(n)
 	except:	
-		return redirect(url_for("accountPage",address=address))
+			return redirect(url_for("accountPage",address=address))
 		
-	return render_template("單頁論文頁面.html")
 	
 	
 #修改個人資料頁面
@@ -56,9 +59,9 @@ def updatePage(address):
 def update(address):
 	try:
 		'''修改個人資料'''
+		return redirect(url_for("accountPage",address=address))
 	except:
 		return redirect(url_for("accountPage",address=address))
-	return redirect(url_for("accountPage",address=address))
 
 
 #論文列表頁面
