@@ -29,14 +29,23 @@ def createOrSearch():
 #帳號頁面
 @app.route("/<address>/",methods=["GET"])
 def accountPage(address):
-
 	return render_template("帳號頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 
 	
 #上傳論文頁面
 @app.route("/<address>/upload",methods=["GET"])
-def upload(address):
+def uploadPage(address):
 	return render_template("上傳論文頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
+
+@app.route("/<address>/upload",methods=["POST"])
+def upload(address):
+	try:
+		ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27','12345678')).upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
+	
+	except:	
+		return render_template("帳號頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
+		
+	return render_template("單頁論文頁面.html")
 	
 	
 #修改個人資料頁面
