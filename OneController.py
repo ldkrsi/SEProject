@@ -43,22 +43,35 @@ def upload(address):
 		ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27','12345678')).upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
 	
 	except:	
-		return render_template("帳號頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
+		return redirect(url_for("accountPage",address=address))
 		
 	return render_template("單頁論文頁面.html")
 	
 	
 #修改個人資料頁面
 @app.route("/<address>/update",methods=["GET"])
-def update(address):
+def updatePage(address):
 	return render_template("修改個人資料頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
+@app.route("/<address>/update",methods=["POST"])
+def update(address):
+	try:
+		'''修改個人資料'''
+	except:
+		return redirect(url_for("accountPage",address=address))
+	return redirect(url_for("accountPage",address=address))
 
 
-#論文列表
+#論文列表頁面
 @app.route("/<address>/papers",methods=["GET"])
 def papers(address):
 	return render_template("論文列表頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 
+#邀請申請頁面
+@app.route("/<address>/invite",methods=["GET"])
+def invite(address):
+		return render_template("邀請申請頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
+
+	
 #查看所有發出的邀請頁面
 @app.route("/<address>/invites",methods=["GET"])
 def invites(address):
@@ -70,26 +83,5 @@ def requests(address):
 	return render_template("查看所有收到的邀請頁面.html",Address=ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).infomation()['owner'],accountAddr=address)
 
 
-	
-	
-'''	
-
-							
-		result=modelroot.find(帳號)
-		if result is None:
-			return render_template("首頁.html")
-		else:
-			return render_template("帳號頁面.html")
-	'''
-#	return request.form["name"]
-'''
-	address=app.request
-	usr=usr
-	result=modelroot.find(帳號)
-	if result is None:
-		return "首頁網址"
-	else:
-		return "帳號頁面"
-'''		
 if __name__=="__main__":	
 	app.run(debug=True)
