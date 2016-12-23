@@ -168,7 +168,7 @@ if __name__ == '__main__':
 	#test1
 #	print(two.owner.pwd)
 	#print(two.papers_list())
-	
+	print(two.infomation())
 	p = None
 	if len(one.papers_list()) > 0:
 		p = one.papers_list()[0]
