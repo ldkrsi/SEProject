@@ -60,12 +60,12 @@
             <div class="col l2 m2 s2"></div>
             
             <div class="col l10 m10 s10" style="font-size: 25px;">
-                
+                {% for i in range(p)%}
                 <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;收到邀請論文列表</b></p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文1</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： 11111111111.com.tw</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： 111111111111111</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metedata &nbsp;&nbsp;： 11111111111111</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： {link}}/p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： {{hashcode}}</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metedata &nbsp;&nbsp;： {{metadata}}</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 邀請人Address&nbsp;&nbsp;： 11111111111111.com.tw</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 提出時間 &nbsp;&nbsp;&nbsp;： 20:30</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 審查連結 &nbsp;&nbsp;&nbsp;： 66666666666666.com.tw</p>
@@ -78,23 +78,8 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">確認取消</button>
                 
-                
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文2</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： 222222222222.com.tw</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： 2222222222222222</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metedata &nbsp;&nbsp;： 222222222222222</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 邀請人Address&nbsp;&nbsp;： 2222222222222222.com.tw</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 提出時間 &nbsp;&nbsp;&nbsp;： 13:30</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 審查連結 &nbsp;&nbsp;&nbsp;： 77777777777777.com.tw</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 取消邀請:
-                <span class="input-field inline">
-                    <input id="password2" type="email" class="validate">
-                        <label for="password2" data-error="wrong" data-success="right">密碼</label>
-                        </span>
-                </p>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">確認取消</button>
-                
+               
+                {% endfor %}
             </div>
         </div>
     </div>

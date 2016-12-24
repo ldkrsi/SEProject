@@ -166,9 +166,17 @@ if __name__ == '__main__':
 	#print(two.entity.address)
 	p = one.upload_paper("http://example.com","001","test")
 	#test1
+	print(two.papers_list()[1].address)
 #	print(two.owner.pwd)
-	#print(two.papers_list())
-	print(two.infomation())
+	#print(two.read_data().list_all_requests()[0].paper.read_data().doc_info()[0])
+	print(InviteReview(two))
+	print(two.request_list())
+	
+	#print(two.request_list().read_data().doc_info())
+	print(two.request_list()[0])
+	print(two.papers_list()[0].read_data().doc_info()[2])
+	print(two.papers_list()[0].address)
+	
 	p = None
 	if len(one.papers_list()) > 0:
 		p = one.papers_list()[0]
@@ -180,7 +188,7 @@ if __name__ == '__main__':
 	i = one.invite_review(two, p ,'10000000000000000000')
 	print(i.infomation(), i.reviewer().address, i.sender().address, i.paper().infomation())
 	print(one.invites_list())
-	print(two.request_list())
+	print(two.papers_list()[0].request_list())
 	
 	two.done_review(i,True,'some comments')
 	print(i.infomation())

@@ -76,18 +76,26 @@ def papers(address):
 	link=[]
 	hashcode=[]
 	metadata=[]
+	paperAddr=[]
 	for i in range(p):
 		link.append(result.papers_list()[i].read_data().doc_info()[0])
 		hashcode.append(result.papers_list()[i].read_data().doc_info()[1])
 		metadata.append(result.papers_list()[i].read_data().metadata())
-	return render_template("論文列表頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata)
-	
-	
+		paperAddr.append(result.papers_list()[i].address)
+	return render_template("論文列表頁面.html",Address=result.infomation()['owner'],
+	accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,paperAddr=paperAddr)
+'''
+@app.route("/<address>/papers",methods=["POST"])
+def papersX(address):
+	return redirect(url_for("invite",address=address,paperAddr=result.papers_list()[i].address))
+
+'''	
 
 #邀請申請頁面
 @app.route("/<address>/invite",methods=["GET"])
 def invite(address):
-		return render_template("邀請申請頁面.html",Address=result.infomation()['owner'],accountAddr=address)
+	paperAddr=request.args.get('paper','')
+	return render_template("邀請申請頁面.html",Address=result.infomation()['owner'],accountAddr=address,paperAddr=paperAddr)
 
 	
 #查看所有發出的邀請頁面
@@ -98,7 +106,18 @@ def invites(address):
 #查看所有收到的邀請頁面
 @app.route("/<address>/requests",methods=["GET"])
 def requests(address):
-	return render_template("查看所有收到的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address)
+	if len(result.papers_list())>0:
+		p=len(result.papers_list())-1
+	
+	link=[]
+	hashcode=[]
+	metadata=[]
+	for i in range(p):
+		link.append(result.request_list()[i].paper.read_data().doc_info()[0])
+		hashcode.append(result.request_list()[i].paper.read_data().doc_info()[1])
+		metadata.append(result.request_list()[i].paper.read_data().metadata())
+
+	return render_template("查看所有收到的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata)
 
 
 if __name__=="__main__":	
