@@ -44,21 +44,24 @@ def uploadPage(address):
 
 @app.route("/<address>/upload",methods=["POST"])
 def upload(address):
-	try:
-		a=User(result.infomation()['owner'],request.form["password"])
-		result.upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
-		return redirect(url_for("transactions"))
-	except:	
-		return redirect(url_for("accountPage",address=address))
-		
+	result = Account(address)
+	#try:
+	a=User(result.infomation()['owner'],request.form["password"])
+	result.upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
+	return redirect(url_for("transactions"))
+	#except:	
+	#	return redirect(url_for("accountPage",address=address))
+	#	
 	
 	
 #修改個人資料頁面
 @app.route("/<address>/update",methods=["GET"])
 def updatePage(address):
+	result = Account(address)
 	return render_template("修改個人資料頁面.html",Address=result.infomation()['owner'],accountAddr=address)
 @app.route("/<address>/update",methods=["POST"])
 def update(address):
+	result = Account(address)
 	try:
 		'''修改個人資料'''
 		result.infomation()['metadata']=request.form['personinfo']
@@ -70,7 +73,8 @@ def update(address):
 
 #論文列表頁面
 @app.route("/<address>/papers",methods=["GET"])
-def papers(address):	
+def papers(address):
+	result = Account(address)
 	if len(result.papers_list())>0:
 		p=len(result.papers_list())-1;
 	link=[]
@@ -90,6 +94,7 @@ def papers(address):
 #單頁論文頁面
 @app.route("/<address>/papers/<paperAddr>",methods=["GET"])
 def paperPage(address,paperAddr):
+	result = Account(address)
 	p=len(result.papers_list())-1;
 	for i in range(p):
 		if paperAddr==result.papers_list()[i].address:
@@ -105,10 +110,12 @@ def paperPage(address,paperAddr):
 #邀請申請頁面
 @app.route("/<address>/invite",methods=["GET"])
 def invitePage(address):
+	result = Account(address)
 	paperAddr=request.args.get('paper','')
 	return render_template("邀請申請頁面.html",Address=result.infomation()['owner'],accountAddr=address,paperAddr=paperAddr)
 @app.route("/<address>/invite",methods=["POST"])
 def invite(address):
+	result = Account(address)
 	toinvite=ModelRoot.find_account(User(request.form['toinvite']))
 	price=request.form['price']
 	i = two.invite_review(toinvite, result.papers_list()[0] ,price)
@@ -117,6 +124,7 @@ def invite(address):
 #查看所有發出的邀請頁面
 @app.route("/<address>/invites",methods=["GET"])
 def invitesPage(address):
+	result = Account(address)
 	if len(result.invites_list())>0:
 		p=len(result.invites_list())-1
 	
@@ -132,6 +140,7 @@ def invitesPage(address):
 	return render_template("查看所有發出的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,reviewer=reviewer)
 @app.route("/<address>/invites",methods=["POST"])
 def invites(address):	
+	result = Account(address)
 	try:
 		a=User(result.infomation()['owner'],request.form["password"])
 		result.invites_list()[i].cancel_from()
@@ -141,6 +150,7 @@ def invites(address):
 #查看所有收到的邀請頁面
 @app.route("/<address>/requests",methods=["GET"])
 def requestsPage(address):
+	result = Account(address)
 	if len(result.request_list())>0:
 		p=len(result.request_list())-1
 	
@@ -160,6 +170,7 @@ def requestsPage(address):
 
 @app.route("/<address>/requests",methods=["POST"])
 def requests(address):	
+	result = Account(address)
 	try:
 		a=User(result.infomation()['owner'],request.form["password"])
 		result.invites_list()[i].cancel_from()
@@ -169,6 +180,7 @@ def requests(address):
 
 @app.route("/<address>/requests/<inviteAddr>",methods=["GET"])
 def reviewPage(address,inviteAddr):
+	result = Account(address)
 	p=len(result.request_list())-1;
 	for i in range(p):
 		if inviteAddr==result.request_list()[i].address:
@@ -177,6 +189,12 @@ def reviewPage(address,inviteAddr):
 	return render_template("審查頁面.html",Address=result.infomation()['owner'],accountAddr=address,paperAddr=paperAddr,sender=sender)
 @app.route("/<address>/requests/<inviteAddr>",methods=["POST"])
 def review(address,inviteAddr):
-
+	result = Account(address)
+	try:
+		a=User(result.infomation()['owner'],request.form["password"])
+		#result.invites_list()[i].cancel_from()
+		return redirect(url_for("transactions"))
+	except:	
+		return redirect(url_for("invitesPage",address=address))
 if __name__=="__main__":	
 	app.run(debug=True)
