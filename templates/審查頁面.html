@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>requests</title>
+	<title>requests/str:invite address</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -49,41 +49,41 @@
             <div class="col l2 m2 s2"></div>
         
             <div class="col l10 m10 s10" style="font-size: 25px;">
-            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{Address}}</b></p>
-            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{accountAddr}}</b></p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="l12 m12 s12">
-            <div class="col l2 m2 s2"></div>
-            
-            <div class="col l10 m10 s10" style="font-size: 25px;">
-                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;收到邀請論文列表</b></p>
-				 {% for i in range(p)%}
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文{{i+1}}</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： {{link[i]}}</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： {{hashcode[i]}}</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metedata &nbsp;&nbsp;： {{metadata[i]}}</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 邀請人Address&nbsp;&nbsp;： &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sender[i]}}</p>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<a class="waves-effect grey darken-1 btn" style="font-size: 18px;" href="requests/{{inviteAddr[i]}}"> 審查</a>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 取消邀請:
-                    <span class="input-field inline">
-                        <input name="password" class="validate">
-                            <label for="password" data-error="wrong" data-success="right">密碼</label>
-                    </span>
-                </p>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">確認取消</button>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : {{Address}}</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{accountAddr}}</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;論文Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{paperAddr}}</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;邀請人Address :{{sender}}</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;Accept/Reject&nbsp;&nbsp;:</b></p>
+                <form action="#">
+                    <p>
+                    <input name="group1" type="radio" id="test1" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label for="test1" class="black-text" style="font-size: 25px;">Accept</label>
+                    </p>
+                    <p>
+                    <input name="group1" type="radio" id="test2" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label for="test2" class="black-text" style="font-size: 25px;">Reject</label>
+                    </p>
+                </form>
                 
-               
-                {% endfor %}
+                <br>
+                
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;留言:</b></p>
+                
+                    <form class="col l12 m12 s12 ">
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                <label for="textarea1"></label>
+                            </div>
+                    </form>
+              
+              
+            
+                    <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">送出審查</button>
             </div>
         </div>
     </div>
-
     
     
     <br><br><br>

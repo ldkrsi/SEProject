@@ -171,7 +171,18 @@ if __name__ == '__main__':
 #	print(two.owner.pwd)
 	#print(two.read_data().list_all_requests()[0].paper.read_data().doc_info()[0])
 	#print(InviteReview(two).infomation())
-	print(two.invites_list().infomation)
+	k=len(two.request_list())-1
+	
+	link=[]
+	hashcode=[]
+	metadata=[]
+	sender=[]
+	for i in range(k):
+		print(two.request_list()[i].paper().read_data().doc_info()[0])
+		print(two.request_list()[i].paper().read_data().doc_info()[1])
+		print(two.request_list()[i].paper().read_data().metadata())
+		print(two.request_list()[i].sender().address)
+	print(two.request_list())
 	print(two.request_list()[0].infomation())
 	#print(two.request_list()[0].belog_to().address)
 	print(two.request_list()[0].address)
