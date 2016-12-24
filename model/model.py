@@ -161,21 +161,34 @@ root = Organization(config['organization'])
 if __name__ == '__main__':
 	one = root.get_my_account(defaultUser)
 	two = root.get_my_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27', '12345678'))
+	print(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27').pwd)
 	#print(root.account_list())
 	#print(one.entity.address)
 	#print(two.entity.address)
 	p = one.upload_paper("http://example.com","001","test")
 	#test1
-	print(two.papers_list()[1].address)
+	#print(two.papers_list()[1].address)
 #	print(two.owner.pwd)
 	#print(two.read_data().list_all_requests()[0].paper.read_data().doc_info()[0])
-	print(InviteReview(two))
-	print(two.request_list())
+	#print(InviteReview(two).infomation())
+	#print(two.infomation())
+	#print(two.request_list())
 	
 	#print(two.request_list().read_data().doc_info())
-	print(two.request_list()[0])
-	print(two.papers_list()[0].read_data().doc_info()[2])
-	print(two.papers_list()[0].address)
+	#print(two.request_list()[0])
+	#print(two.papers_list()[0].read_data().doc_info()[2])
+	#print(two.papers_list()[0].address)
+'''
+	i = one.invite_review(two, one.papers_list()[0] ,'1000000')
+	print(i)
+	print(one.invites_list())
+
+	#one.cancel_invite(i)
+	#print(one.get_balance())
+	#one.send_money_to_owner()
+	#print(one.get_balance())
+	
+	
 	
 	p = None
 	if len(one.papers_list()) > 0:
@@ -183,7 +196,8 @@ if __name__ == '__main__':
 	else:
 		p = one.upload_paper("http://example.com","001","test")
 	print(p.read_data().metadata())
-	'''
+	
+	
 	ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).papers_list()[i].read_data().metadata()
 	i = one.invite_review(two, p ,'10000000000000000000')
 	print(i.infomation(), i.reviewer().address, i.sender().address, i.paper().infomation())

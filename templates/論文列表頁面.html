@@ -61,16 +61,18 @@
             
             <div class="col l10 m10 s10" style="font-size: 25px;">
 			
-				{% for i in range(p)%}
+			
 				
                 <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;論文列表</b></p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文{{i+1}}</p>
+					{% for i in range(p)%}
+                <a class="deep-purple-text text-darken-4" href="papers/{{paperAddr[i]}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文{{i+1}}</a>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： {{link[i]}}</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： {{hashcode[i]}}</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metadata &nbsp;&nbsp;：{{metadata[i]}} </p>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a class="waves-effect grey darken-1 btn" style="font-size: 18px;" href="invite?paper={{paperAddr[i]}}">邀請連結</a>
-                
+                <br>
+				<br>
 				{% endfor %}
             </div>
         </div>

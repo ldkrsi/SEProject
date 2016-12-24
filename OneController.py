@@ -72,7 +72,6 @@ def update(address):
 def papers(address):	
 	if len(result.papers_list())>0:
 		p=len(result.papers_list())-1;
-	
 	link=[]
 	hashcode=[]
 	metadata=[]
@@ -90,14 +89,24 @@ def papersX(address):
 	return redirect(url_for("invite",address=address,paperAddr=result.papers_list()[i].address))
 
 '''	
+#單頁論文頁面
+@app.route("/<address>/papers/<paperAddr>",methods=["GET"])
+def paperPage(paperAddr,address):
+		return render_template("單頁論文頁面.html")
+
 
 #邀請申請頁面
 @app.route("/<address>/invite",methods=["GET"])
-def invite(address):
+def invitePage(address):
 	paperAddr=request.args.get('paper','')
 	return render_template("邀請申請頁面.html",Address=result.infomation()['owner'],accountAddr=address,paperAddr=paperAddr)
+@app.route("/<address>/invite",methods=["POST"])
+def invite(address):
+	toinvite=ModelRoot.find_account(User(request.form['toinvite']))
+	price=request.form['price']
+	i = two.invite_review(toinvite, result.papers_list()[0] ,price)
+	return (i.infomation(), i.reviewer().address, i.sender().address, i.paper().infomation())
 
-	
 #查看所有發出的邀請頁面
 @app.route("/<address>/invites",methods=["GET"])
 def invites(address):
