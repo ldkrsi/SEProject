@@ -42,13 +42,11 @@ def uploadPage(address):
 @app.route("/<address>/upload",methods=["POST"])
 def upload(address):
 	try:
-		if request.form["password"]==User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27','12345678').pwd:
-			result.upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
-			return render_template("單頁論文頁面.html")
-		else:
-			return(n)
+		a=User(result.infomation()['owner'],request.form["password"])
+		result.upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
+		return redirect(url_for("transactions"))
 	except:	
-			return redirect(url_for("accountPage",address=address))
+		return redirect(url_for("accountPage",address=address))
 		
 	
 	
@@ -83,16 +81,20 @@ def papers(address):
 		paperAddr.append(result.papers_list()[i].address)
 	return render_template("論文列表頁面.html",Address=result.infomation()['owner'],
 	accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,paperAddr=paperAddr)
-'''
-@app.route("/<address>/papers",methods=["POST"])
-def papersX(address):
-	return redirect(url_for("invite",address=address,paperAddr=result.papers_list()[i].address))
 
-'''	
+	
+	
 #單頁論文頁面
 @app.route("/<address>/papers/<paperAddr>",methods=["GET"])
 def paperPage(paperAddr,address):
-		return render_template("單頁論文頁面.html")
+	for i in range(len(result.papers_list())-1):
+		if paperAddr==result.papers_list()[i].address:
+			arthor=result.papers_list()[i].belog_to()
+			link=result.papers_list()[i].read_data().doc_info()[0]
+			hashcode=result.papers_list()[i].read_data().doc_info()[1]
+			time=result.papers_list()[i].read_data().doc_info()[2]
+			metadata=result.papers_list()[i].read_data().detadata()
+			return render_template("單頁論文頁面.html",arthor=arthor,link=link,hashcode=hashcode,time=time,metadata=metadata)
 
 
 #邀請申請頁面
