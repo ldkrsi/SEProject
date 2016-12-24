@@ -86,15 +86,17 @@ def papers(address):
 	
 #單頁論文頁面
 @app.route("/<address>/papers/<paperAddr>",methods=["GET"])
-def paperPage(paperAddr,address):
-	for i in range(len(result.papers_list())-1):
+def paperPage(address,paperAddr):
+	p=len(result.papers_list())-1;
+	for i in range(p):
 		if paperAddr==result.papers_list()[i].address:
-			arthor=result.papers_list()[i].belog_to()
+			arthor=result.papers_list()[i].belog_to().address
 			link=result.papers_list()[i].read_data().doc_info()[0]
 			hashcode=result.papers_list()[i].read_data().doc_info()[1]
 			time=result.papers_list()[i].read_data().doc_info()[2]
-			metadata=result.papers_list()[i].read_data().detadata()
-			return render_template("單頁論文頁面.html",arthor=arthor,link=link,hashcode=hashcode,time=time,metadata=metadata)
+			metadata=result.papers_list()[i].read_data().metadata()
+			break	
+	return render_template("單頁論文頁面.html",arthor=arthor,link=link,hashcode=hashcode,time=time,metadata=metadata)
 
 
 #邀請申請頁面
