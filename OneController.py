@@ -113,7 +113,7 @@ def invite(address):
 
 #查看所有發出的邀請頁面
 @app.route("/<address>/invites",methods=["GET"])
-def invites(address):
+def invitesPage(address):
 	if len(result.invites_list())>0:
 		p=len(result.invites_list())-1
 	
@@ -127,7 +127,16 @@ def invites(address):
 		metadata.append(result.invites_list()[i].paper().read_data().metadata())
 		reviewer.append(result.invites_list()[i].sender().address)
 	return render_template("查看所有發出的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,reviewer=reviewer)
-	
+@app.route("/<address>/invites",methods=["POST"])
+def invites(address):	
+	try:
+		a=User(result.infomation()['owner'],request.form["password"])
+		result.invites_list()[i].cancel_from()
+		return '123'
+		#return redirect(url_for("invitesPage",address=address))
+	except:	
+		return '234'
+		#return redirect(url_for("invitesPage",address=address))
 #查看所有收到的邀請頁面
 @app.route("/<address>/requests",methods=["GET"])
 def requests(address):
