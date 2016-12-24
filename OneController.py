@@ -44,6 +44,7 @@ def uploadPage(address):
 
 @app.route("/<address>/upload",methods=["POST"])
 def upload(address):
+<<<<<<< HEAD
 	result = Account(address)
 	#try:
 	a=User(result.infomation()['owner'],request.form["password"])
@@ -52,6 +53,15 @@ def upload(address):
 	#except:	
 	#	return redirect(url_for("accountPage",address=address))
 	#	
+=======
+	try:
+		result = Account(address, User(request.form["eth-address"], request.form["password"]))
+		result.upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
+		return redirect(url_for("transactions"))
+	except:	
+		return redirect(url_for("accountPage",address=address))
+		
+>>>>>>> e0ead38685a869d1d52c49953e0785058ea9d7fb
 	
 	
 #修改個人資料頁面
@@ -75,17 +85,24 @@ def update(address):
 @app.route("/<address>/papers",methods=["GET"])
 def papers(address):
 	result = Account(address)
+<<<<<<< HEAD
 	if len(result.papers_list())>0:
 		p=len(result.papers_list())-1;
+=======
+	paper_list = result.papers_list()
+	if len(paper_list)>0:
+		p=len(paper_list)-1;
+>>>>>>> e0ead38685a869d1d52c49953e0785058ea9d7fb
 	link=[]
 	hashcode=[]
 	metadata=[]
 	paperAddr=[]
-	for i in range(p):
-		link.append(result.papers_list()[i].read_data().doc_info()[0])
-		hashcode.append(result.papers_list()[i].read_data().doc_info()[1])
-		metadata.append(result.papers_list()[i].read_data().metadata())
-		paperAddr.append(result.papers_list()[i].address)
+	for item in paper_list:
+		info = item.infomation()
+		link.append(info['doc info'][0])
+		hashcode.append(info['doc info'][1])
+		metadata.append(info['metadata'])
+		paperAddr.append(item.address)
 	return render_template("論文列表頁面.html",Address=result.infomation()['owner'],
 	accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,paperAddr=paperAddr)
 
