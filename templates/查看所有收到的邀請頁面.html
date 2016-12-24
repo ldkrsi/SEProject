@@ -60,13 +60,13 @@
             <div class="col l2 m2 s2"></div>
             
             <div class="col l10 m10 s10" style="font-size: 25px;">
-                {% for i in range(p)%}
                 <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;收到邀請論文列表</b></p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文1</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： {link}}/p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： {{hashcode}}</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metedata &nbsp;&nbsp;： {{metadata}}</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 邀請人Address&nbsp;&nbsp;： 11111111111111.com.tw</p>
+				 {% for i in range(p)%}
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文{{i+1}}</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： {{link[i]}}</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： {{hashcode[i]}}</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metedata &nbsp;&nbsp;： {{metadata[i]}}</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 邀請人Address&nbsp;&nbsp;： {{sender[i]}}</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 提出時間 &nbsp;&nbsp;&nbsp;： 20:30</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 審查連結 &nbsp;&nbsp;&nbsp;： 66666666666666.com.tw</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 取消邀請:

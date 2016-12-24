@@ -19,7 +19,7 @@ def createOrSearch():
 		result=ModelRoot.find_account(User(request.form['searchaccount']))
 		#失敗
 		if result is None:
-			return render_template("帳號頁面.html")
+			return render_template("首頁.html")
 		#成功
 		else:
 			EtherAddress=request.form['searchaccount']
@@ -114,23 +114,37 @@ def invite(address):
 #查看所有發出的邀請頁面
 @app.route("/<address>/invites",methods=["GET"])
 def invites(address):
-	return render_template("查看所有發出的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address)
-	
-#查看所有收到的邀請頁面
-@app.route("/<address>/requests",methods=["GET"])
-def requests(address):
-	if len(result.papers_list())>0:
-		p=len(result.papers_list())-1
+	if len(result.invites_list())>0:
+		p=len(result.invites_list())-1
 	
 	link=[]
 	hashcode=[]
 	metadata=[]
+	reviewer=[]
 	for i in range(p):
-		link.append(result.request_list()[i].paper.read_data().doc_info()[0])
-		hashcode.append(result.request_list()[i].paper.read_data().doc_info()[1])
-		metadata.append(result.request_list()[i].paper.read_data().metadata())
-
-	return render_template("查看所有收到的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata)
+		link.append(result.invites_list()[i].paper().read_data().doc_info()[0])
+		hashcode.append(result.invites_list()[i].paper().read_data().doc_info()[1])
+		metadata.append(result.invites_list()[i].paper().read_data().metadata())
+		reviewer.append(result.invites_list()[i].sender().address)
+	return render_template("查看所有發出的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,reviewer=reviewer)
+	
+#查看所有收到的邀請頁面
+@app.route("/<address>/requests",methods=["GET"])
+def requests(address):
+	if len(result.request_list())>0:
+		p=len(result.request_list())-1
+	
+	link=[]
+	hashcode=[]
+	metadata=[]
+	sender=[]
+	for i in range(p):
+		link.append(result.request_list()[i].paper().read_data().doc_info()[0])
+		hashcode.append(result.request_list()[i].paper().read_data().doc_info()[1])
+		metadata.append(result.request_list()[i].paper().read_data().metadata())
+		sender.append(result.request_list()[i].sender().address)
+		
+	return render_template("查看所有收到的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,sender=sender)
 
 
 if __name__=="__main__":	
