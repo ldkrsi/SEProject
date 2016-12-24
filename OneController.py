@@ -10,7 +10,6 @@ def index():
 	
 @app.route("/",methods=["POST"])
 def createOrSearch():
-	global result
 	if 'createaccount' in request.form:
 		#創帳號
 		return "2"
@@ -31,12 +30,16 @@ def createOrSearch():
 #帳號頁面
 @app.route("/<address>/",methods=["GET"])
 def accountPage(address):
+	if address == 'favicon.ico':
+		return '', 404
+	result = Account(address)
 	return render_template("帳號頁面.html",Address=result.infomation()['owner'],accountAddr=address,personinfo=result.infomation()['metadata'])
 
 	
 #上傳論文頁面
 @app.route("/<address>/upload",methods=["GET"])
 def uploadPage(address):
+	result = Account(address)
 	return render_template("上傳論文頁面.html",Address=result.infomation()['owner'],accountAddr=address)
 
 @app.route("/<address>/upload",methods=["POST"])
