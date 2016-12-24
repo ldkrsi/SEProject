@@ -59,7 +59,7 @@
         <div class="l12 m12 s12">
             <div class="col l2 m2 s2"></div>
             
-            <div method=["POST"] class="col l10 m10 s10" style="font-size: 25px;">
+            <form method="POST" class="col l10 m10 s10" style="font-size: 25px;">
                 <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;發出邀請論文列表</b></p>
                 {% for i in range(p)%}
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文{{i+1}}</p>
@@ -77,7 +77,7 @@
                     <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">確認取消</button>
                 
 				{% endfor %}
-            </div>
+            </form>
         </div>
     </div>
 
