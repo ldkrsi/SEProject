@@ -142,7 +142,8 @@ def invites(address):
 	try:
 		result=Account(address)
 		check = Account(address, User(request.form["eth-address"], request.form["password"]))
-		result.invites_list()[0].cancel_from()		
+		n=int(request.form["n"])
+		result.invites_list()[n].cancel_from()		
 		return redirect(url_for("transactions"))
 	except:	
 		return redirect(url_for("invitesPage",address=result.address))
@@ -172,7 +173,8 @@ def requests(address):
 	try:
 		result = Account(address)
 		check = Account(address, User(request.form["eth-address"], request.form["password"]))
-		result.request_list()[0].cancel_from()		
+		n=int(request.form["n"])
+		result.request_list()[n].cancel_from()		
 		return redirect(url_for("transactions"))
 	except:	
 		return redirect(url_for("requestsPage",address=result.address))
@@ -189,10 +191,11 @@ def reviewPage(address,inviteAddr):
 
 @app.route("/<address>/requests/<inviteAddr>",methods=["POST"])
 def review(address,inviteAddr):
+	n=int(request.form["n"])
 	result=Account(address)
 	review=request.form["review"]
+	result.done_review(result.request_list()[n],review)
 	
-	result.done_review(result.request_list()[0],,review)
 	return redirect(url_for("transactions"))
 
 if __name__=="__main__":	
