@@ -2,7 +2,6 @@ from BaseController import *
 import OneController, TwoController
 
 
-
 @app.route('/example/<account_address>')
 def example(account_address):
 	one = ModelRoot.get_my_account(User(account_address))
