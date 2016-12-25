@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>home</title>
+	<title>requests/str:invite address</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -35,7 +35,7 @@
                     <li><a href="#!">項目三</a></li>
                 </ul>
                 <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
-                
+
         </div>
     </nav>
     
@@ -44,26 +44,47 @@
     
     <br><br><br>
     
-    <div class="row l12 m12 s12">
-        <div class="col l3 m3 s3"></div>
-            <form method="POST" class="col l6 m6 s6" style="font-size: 15px;">
-                <p style="font-size: 25px;">查詢帳號</p>
-                    乙太坊Address: <input type="text" name	="searchaccount"><br>
-                        <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">查詢</button>
-            </form>
+    <div class="row">
+        <div class="l12 m12 s12">
+            <div class="col l2 m2 s2"></div>
+        
+            <div class="col l10 m10 s10" style="font-size: 25px;">
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : {{Address}}</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{accountAddr}}</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;論文Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{paperAddr}}</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;邀請人Address :{{sender}}</b></p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;Accept/Reject&nbsp;&nbsp;:</b></p>
+                <form action="#">
+                    <p>
+                    <input name="group1" type="radio" id="test1" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label for="test1" class="black-text" style="font-size: 25px;">Accept</label>
+                    </p>
+                    <p>
+                    <input name="group1" type="radio" id="test2" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label for="test2" class="black-text" style="font-size: 25px;">Reject</label>
+                    </p>
+                </form>
+                
+                <br>
+                
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;留言:</b></p>
+                
+                    <form class="col l12 m12 s12 ">
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                <label for="textarea1"></label>
+                            </div>
+                    </form>
+              
+              
+            
+                    <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">送出審查</button>
+            </div>
+        </div>
     </div>
     
-    <br><br><br>
-    
-    <div class="row l12 m12 s12">
-        <div class="col l3 m3 s3"></div>
-            <form method="POST" class="col l6 m6 s6" style="font-size: 15px;">
-                <p style="font-size: 25px;">創建帳號</p>
-                    乙太坊Address: <input type="text" name="createaccount"><br>
-                    密碼: <input type="text" name="code"><br>
-                    <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">建立</button>
-            </form>
-    </div>
     
     <br><br><br>
     

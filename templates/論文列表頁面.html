@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>home</title>
+	<title>papers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -35,7 +35,7 @@
                     <li><a href="#!">項目三</a></li>
                 </ul>
                 <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
-                
+
         </div>
     </nav>
     
@@ -44,25 +44,38 @@
     
     <br><br><br>
     
-    <div class="row l12 m12 s12">
-        <div class="col l3 m3 s3"></div>
-            <form method="POST" class="col l6 m6 s6" style="font-size: 15px;">
-                <p style="font-size: 25px;">查詢帳號</p>
-                    乙太坊Address: <input type="text" name	="searchaccount"><br>
-                        <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">查詢</button>
-            </form>
+    <div class="row">
+        <div class="l12 m12 s12">
+            <div class="col l2 m2 s2"></div>
+        
+            <div class="col l10 m10 s10" style="font-size: 25px;">
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{Address}}</b></p>
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{accountAddr}}</b></p>
+            </div>
+        </div>
     </div>
     
-    <br><br><br>
-    
-    <div class="row l12 m12 s12">
-        <div class="col l3 m3 s3"></div>
-            <form method="POST" class="col l6 m6 s6" style="font-size: 15px;">
-                <p style="font-size: 25px;">創建帳號</p>
-                    乙太坊Address: <input type="text" name="createaccount"><br>
-                    密碼: <input type="text" name="code"><br>
-                    <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">建立</button>
-            </form>
+    <div class="row">
+        <div class="l12 m12 s12">
+            <div class="col l2 m2 s2"></div>
+            
+            <div class="col l10 m10 s10" style="font-size: 25px;">
+			
+			
+				
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;論文列表</b></p>
+					{% for i in range(p)%}
+                <a class="deep-purple-text text-darken-4" href="papers/{{paperAddr[i]}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文{{i+1}}</a>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 論文連結 &nbsp;&nbsp;&nbsp;： {{link[i]}}</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Hash code ： {{hashcode[i]}}</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ Metadata &nbsp;&nbsp;：{{metadata[i]}} </p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="waves-effect grey darken-1 btn" style="font-size: 18px;" href="invite?paper={{paperAddr[i]}}">邀請連結</a>
+                <br>
+				<br>
+				{% endfor %}
+            </div>
+        </div>
     </div>
     
     <br><br><br>
