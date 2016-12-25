@@ -1,5 +1,5 @@
 from BaseController import *
-import OneController, TwoController
+import OneController
 
 
 @app.route('/example/<account_address>')
