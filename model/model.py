@@ -161,24 +161,63 @@ root = Organization(config['organization'])
 if __name__ == '__main__':
 	one = root.get_my_account(defaultUser)
 	two = root.get_my_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27', '12345678'))
-	print(root.account_list())
+	#print(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27').pwd)
+	print(one.infomation())
 	print(one.entity.address)
-	print(two.entity.address)
+	#print(two.entity.address)
 	p = one.upload_paper("http://example.com","001","test")
 	#test1
-	'''
+	#print(two.papers_list()[1].address)
+#	print(two.owner.pwd)
+	#print(two.read_data().list_all_requests()[0].paper.read_data().doc_info()[0])
+	#print(InviteReview(two).infomation())
+	k=len(two.request_list())-1
+	
+	link=[]
+	hashcode=[]
+	metadata=[]
+	sender=[]
+	for i in range(k):
+		print(two.request_list()[i].paper().read_data().doc_info()[0])
+		print(two.request_list()[i].paper().read_data().doc_info()[1])
+		print(two.request_list()[i].paper().read_data().metadata())
+		print(two.request_list()[i].sender().address)
+	print(two.request_list())
+	print(two.request_list()[0].infomation())
+	#print(two.request_list()[0].belog_to().address)
+	print(two.request_list()[0].address)
+#	print(two.two.request_list()[0].read_data().belong_to())
+	print(two.request_list()[0].paper().address)
+	print(two.request_list()[0].read_data().state())
+
+#print(two.request_list()[0])
+#print(two.papers_list()[0].read_data().doc_info()[2])
+	#print(two.papers_list()[0].address)
+'''
+	i = one.invite_review(two, one.papers_list()[0] ,'1000000')
+	print(i)
+	print(one.invites_list())
+
+	#one.cancel_invite(i)
+	#print(one.get_balance())
+	#one.send_money_to_owner()
+	#print(one.get_balance())
+	
+	
+	
 	p = None
 	if len(one.papers_list()) > 0:
 		p = one.papers_list()[0]
 	else:
-		p = one.upload_paper("http://example.com","000","test")
-	print(p.infomation())
+		p = one.upload_paper("http://example.com","001","test")
+	print(p.read_data().metadata())
 	
 	
+	ModelRoot.find_account(User('0x56a9a02403bE71a4e44F9ff42f06E379A6E2fD27')).papers_list()[i].read_data().metadata()
 	i = one.invite_review(two, p ,'10000000000000000000')
 	print(i.infomation(), i.reviewer().address, i.sender().address, i.paper().infomation())
 	print(one.invites_list())
-	print(two.request_list())
+	print(two.papers_list()[0].request_list())
 	
 	two.done_review(i,True,'some comments')
 	print(i.infomation())

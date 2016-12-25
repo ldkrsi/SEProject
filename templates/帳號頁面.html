@@ -15,9 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     
     <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#!">項目一</a></li>
-        <li><a href="#!">項目二</a></li>
-        <li><a href="#!">項目三</a></li>
+        <li><a href='/'>首頁</a></li>
+        <li><a href="/transactions">交易記錄</a></li>
     </ul>
     
 <div class="container">
@@ -30,9 +29,8 @@
                 </ul>
                 
                 <ul id="slide-out" class="side-nav">
-                    <li><a href="#!">項目一</a></li>
-                    <li><a href="#!">項目二</a></li>
-                    <li><a href="#!">項目三</a></li>
+                    <li><a href='/'>首頁</a></li>
+                    <li><a href="/transactions">交易記錄</a></li>
                 </ul>
                 <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
 
@@ -44,7 +42,8 @@
     
     <br><br><br>
     
-    <div class="row l12 m12 s12 hide-on-med-and-down">
+    <div class="row">
+    <div class="l12 m12 s12 hide-on-med-and-down">
         <div class="col l3 m3 s3">
             
             <div class="collection center-align hide-on-med-and-down">
@@ -66,18 +65,20 @@
         </div>
         
         <div class="col l9 m9 s9 flow-text" style="font-size: 25px;">
-            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : 0X1111111111111111111111111</b></p>
-            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 0X2222222222222222222222222</b></p>
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{Address}}</b></p>
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{accountAddr}}</b></p>
             <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;個人資料</b></p>
         </div>
     </div>
+    </div>
     
-    <div class="row l12 m12 s12 hide-on-large-only">
+    <div class="row">
+    <div class="l12 m12 s12 hide-on-large-only">
       
       <div class="col l12 m12 s12 flow-text" style="font-size: 25px;">
-          <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : 0X1111111111111111111111111</b></p>
-          <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 0X2222222222222222222222222</b></p>
-          <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;個人資料</b></p>
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{Address}}</b></p>
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{accountAddr}}</b></p>
+            <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;個人資料{{personinfo}}</b></p><br>
       </div>
       
       <div class="col l12 m12 s12">
@@ -101,7 +102,7 @@
         </div>
         
     </div>
-
+    </div>
     
     
     <br><br><br>
