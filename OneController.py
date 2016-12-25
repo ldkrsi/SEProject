@@ -1,9 +1,5 @@
 from BaseController import *
 
-@app.route('/one')
-def function_one():
-    return 'one'
-
 @app.route("/",methods=["GET"])
 def index():
 	return render_template("首頁.html")
@@ -11,8 +7,10 @@ def index():
 @app.route("/",methods=["POST"])
 def createOrSearch():
 	if 'createaccount' in request.form:
-		#創帳號
-		return "2"
+		value = ModelRoot.get_my_account(User(request.form['createaccount'],request.form['password']))
+		if value is None:
+			return redirect(url_for("transactions"))
+		return redirect(url_for("accountPage",address=value.address))
 	elif 'searchaccount' in request.form:
 		#找帳號
 		result=ModelRoot.find_account(User(request.form['searchaccount']))
@@ -73,8 +71,7 @@ def update(address):
 def papers(address):
 	result = Account(address)
 	paper_list = result.papers_list()
-	if len(paper_list)>0:
-		p=len(paper_list)-1;
+	p = len(paper_list)
 	link=[]
 	hashcode=[]
 	metadata=[]
@@ -94,16 +91,22 @@ def papers(address):
 @app.route("/<address>/papers/<paperAddr>",methods=["GET"])
 def paperPage(address,paperAddr):
 	result = Account(address)
-	p=len(result.papers_list())-1;
-	for i in range(p):
-		if paperAddr==result.papers_list()[i].address:
-			arthor=result.papers_list()[i].belog_to().address
-			link=result.papers_list()[i].read_data().doc_info()[0]
-			hashcode=result.papers_list()[i].read_data().doc_info()[1]
-			time=result.papers_list()[i].read_data().doc_info()[2]
-			metadata=result.papers_list()[i].read_data().metadata()
-			break	
-	return render_template("單頁論文頁面.html",arthor=arthor,link=link,hashcode=hashcode,time=time,metadata=metadata)
+	my_paper = Paper(paperAddr)
+	info = my_paper.infomation()
+	arthor = my_paper.belog_to().address
+	link = info['doc info'][0]
+	hashcode = info['doc info'][1]
+	time = info['doc info'][2]
+	metadata = info['metadata']
+	revw_list = my_paper.review_list()
+	return render_template("單頁論文頁面.html",
+		arthor=arthor,
+		link=link,
+		hashcode=hashcode,
+		time=time,
+		metadata=metadata,
+		r_list = revw_list
+	)
 
 
 #邀請申請頁面
@@ -114,28 +117,32 @@ def invitePage(address):
 	return render_template("邀請申請頁面.html",Address=result.infomation()['owner'],accountAddr=address,paperAddr=paperAddr)
 @app.route("/<address>/invite",methods=["POST"])
 def invite(address):
-	result=Account(address)
-	toinvite=User(request.form['toinvite']).address
-	price=request.form['price']
-	result.invite_review(toinvite, result.papers_list()[0] ,price)
+	result = Account(address, User(request.form["eth-address"], request.form["password"]))
+	price = request.form['price']
+	result.invite_review(
+		Account(request.form['toinvite']), 
+		Paper(request.form['paper-address']),
+		int(price)
+	)
 	return redirect(url_for("transactions"))
 
 #查看所有發出的邀請頁面
 @app.route("/<address>/invites",methods=["GET"])
 def invitesPage(address):
 	result = Account(address)
-	if len(result.invites_list())>0:
-		p=len(result.invites_list())-1
+	invites_list = result.invites_list()
+	p = len(invites_list)
 	
 	link=[]
 	hashcode=[]
 	metadata=[]
 	reviewer=[]
-	for i in range(p):
-		link.append(result.invites_list()[i].paper().read_data().doc_info()[0])
-		hashcode.append(result.invites_list()[i].paper().read_data().doc_info()[1])
-		metadata.append(result.invites_list()[i].paper().read_data().metadata())
-		reviewer.append(result.invites_list()[i].sender().address)
+	for item in invites_list:
+		my_paper = item.paper().infomation()
+		link.append(my_paper['doc info'][0])
+		hashcode.append(my_paper['doc info'][1])
+		metadata.append(my_paper['metadata'])
+		reviewer.append(item.reviewer().address)
 	return render_template("查看所有發出的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,reviewer=reviewer)
 @app.route("/<address>/invites",methods=["POST"])
 def invites(address):	
@@ -151,20 +158,21 @@ def invites(address):
 @app.route("/<address>/requests",methods=["GET"])
 def requestsPage(address):
 	result=Account(address)
-	if len(result.request_list())>0:
-		p=len(result.request_list())-1
+	request_list = result.request_list()
+	p = len(request_list)
 	
 	link=[]
 	hashcode=[]
 	metadata=[]
 	sender=[]
 	inviteAddr=[]
-	for i in range(p):
-		link.append(result.request_list()[i].paper().read_data().doc_info()[0])
-		hashcode.append(result.request_list()[i].paper().read_data().doc_info()[1])
-		metadata.append(result.request_list()[i].paper().read_data().metadata())
-		sender.append(result.request_list()[i].sender().address)
-		inviteAddr.append(result.request_list()[i].address)
+	for item in request_list:
+		my_paper = item.paper().infomation()
+		link.append(my_paper['doc info'][0])
+		hashcode.append(my_paper['doc info'][1])
+		metadata.append(my_paper['metadata'])
+		sender.append(item.sender().address)
+		inviteAddr.append(item.address)
 		
 	return render_template("查看所有收到的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,sender=sender,inviteAddr=inviteAddr)
 
@@ -182,19 +190,24 @@ def requests(address):
 @app.route("/<address>/requests/<inviteAddr>",methods=["GET"])
 def reviewPage(address,inviteAddr):
 	result=Account(address)
-	p=len(result.request_list())-1;
-	for i in range(p):
-		if inviteAddr==result.request_list()[i].address:
-			paperAddr=result.request_list()[i].paper().address
-			sender=result.request_list()[i].sender().address
-	return render_template("審查頁面.html",Address=result.infomation()['owner'],accountAddr=address,paperAddr=paperAddr,sender=sender)
+	p = len(result.request_list())
+	item = InviteReview(inviteAddr)
+	paperAddr = item.paper().address
+	sender = item.sender().address
+	return render_template("審查頁面.html",
+		Address=result.infomation()['owner'],
+		accountAddr=address,
+		paperAddr=paperAddr,
+		sender=sender,
+		inviteAddr = inviteAddr
+	)
 
 @app.route("/<address>/requests/<inviteAddr>",methods=["POST"])
 def review(address,inviteAddr):
-	n=int(request.form["n"])
-	result=Account(address)
-	review=request.form["review"]
-	result.done_review(result.request_list()[n],review)
+	result = Account(address, User(request.form["eth-address"], request.form["password"]))
+	item = InviteReview(inviteAddr)
+	accept = True if request.form["group1"] == 'accept' else False
+	result.done_review(item,accept,request.form["review"])
 	
 	return redirect(url_for("transactions"))
 

@@ -63,7 +63,7 @@ class Organization(BaseModel):
 		if a is not None:
 			return a
 		self.create_account(user)
-		return self.find_account(user)
+		return None
 	def find_account(self, user): # User user
 		if user is None:
 			user = defaultUser

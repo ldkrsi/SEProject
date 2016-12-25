@@ -47,6 +47,8 @@
             <div class="col l2 m2 s2"></div>
         
             <form method="POST" class="col l10 m10 s10" style="font-size: 25px;">
+            <input type="hidden" name="eth-address" value="{{Address}}">
+            <input type="hidden" name="paper-address" value="{{paperAddr}}">
             <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{Address}}</b></p>
             <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{accountAddr}}</b></p>
                 <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;論文Address : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{paperAddr}}</b></p>
@@ -56,6 +58,11 @@
                         <input name="price"  class="validate">
                             </span>
                 </p>
+                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;密碼:</b>
+                <span class="input-field inline">
+                        <input name="password" class="validate">
+                </span>
+            </p>
             
                     <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">申請邀請</button>
             </form>

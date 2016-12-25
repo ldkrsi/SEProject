@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>requests/str:invite address</title>
+	<title>requests</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -47,39 +47,41 @@
             <div class="col l2 m2 s2"></div>
         
             <div class="col l10 m10 s10" style="font-size: 25px;">
-                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : {{Address}}</b></p>
-                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{accountAddr}}</b></p>
-                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;論文Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{paperAddr}}</b></p>
-                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;邀請人Address :{{sender}}</b></p>
-                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;Accept/Reject&nbsp;&nbsp;:</b></p>
-                <form action="#">
+                <form method="POST">
+                    <input type="hidden" name="eth-address" value="{{Address}}">
+
+                    <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;乙太坊Address : {{Address}}</b></p>
+                    <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;帳號Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{accountAddr}}</b></p>
+                    <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;論文Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{paperAddr}}</b></p>
+                    <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;邀請人Address :{{sender}}</b></p>
+                    <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;Accept/Reject&nbsp;&nbsp;:</b></p>
+                
+                    
+
                     <p>
-					<input type="hidden" name="n" value="{{i}}">
-                    <input name="group1" type="radio" id="test1" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <label for="test1" class="black-text" style="font-size: 25px;">Accept</label>
+                        <input name="group1" type="radio" id="test1" value="accept" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="test1" class="black-text" style="font-size: 25px;">Accept</label>
                     </p>
                     <p>
-                    <input name="group1" type="radio" id="test2" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <label for="test2" class="black-text" style="font-size: 25px;">Reject</label>
+                        <input name="group1" type="radio" id="test2" value="reject" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="test2" class="black-text" style="font-size: 25px;">Reject</label>
                     </p>
-                </form>
-                
-                <br>
-                
-                <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;留言:</b></p>
-                
-                    <form class="col l12 m12 s12 ">
-                            <div class="input-field col s12">
-                                <textarea name="review" class="materialize-textarea"></textarea>
-                                <label for="review"></label>
-                            </div>
-                    </form>
-              
-              
-            
+                    <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;留言:</b></p>
+                    <div class="input-field col s12">
+                        <textarea name="review" class="materialize-textarea"></textarea>
+                        <label for="review"></label>
+                    </div>
+                    <p>
+                        <b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;密碼:</b>
+                        <span class="input-field inline">
+                            <input name="password" class="validate">
+                        </span>
+                    </p>
                     <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">送出審查</button>
+                </form>
+        
             </div>
         </div>
     </div>
