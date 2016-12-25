@@ -69,9 +69,9 @@
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 受邀人Address&nbsp;&nbsp;： {{reviewer[i]}}</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 取消邀請:
                     <span class="input-field inline">
+					<input type="hidden" name="eth-address" value="{{Address}}">
                         <input name="password" class="validate">
-                            <label>密碼</label>
-                    </span>
+						<label for="password" data-error="wrong" data-success="right">密碼</label>                    </span>
                 </p>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">確認取消</button>

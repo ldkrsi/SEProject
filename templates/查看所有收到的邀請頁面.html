@@ -59,7 +59,7 @@
         <div class="l12 m12 s12">
             <div class="col l2 m2 s2"></div>
             
-            <form class="col l10 m10 s10" style="font-size: 25px;">
+            <form method="POST" form class="col l10 m10 s10" style="font-size: 25px;">
                 <p><b>&nbsp;●&nbsp;&nbsp;&nbsp;&nbsp;收到邀請論文列表</b></p>
 				 {% for i in range(p)%}
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;♦ 論文{{i+1}}</p>
@@ -70,13 +70,14 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a class="waves-effect grey darken-1 btn" style="font-size: 18px;" href="requests/{{inviteAddr[i]}}"> 審查</a>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⋄ 取消邀請:
-                    <span class="input-field inline">
-                        <input name="password" class="validate">
+                    <span class="input-field inline">		
+                    <input type="hidden" name="eth-address" value="{{Address}}">
+					<input name="password" class="validate">
                             <label for="password" data-error="wrong" data-success="right">密碼</label>
                     </span>
                 </p>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="waves-effect grey darken-1 btn" type="submit" style="font-size: 18px;">確認取消</button>
+                    <button class="waves-effect grey darken-1 btn" type="submit"style="font-size: 18px;">確認取消</button>
                 
                
                 {% endfor %}

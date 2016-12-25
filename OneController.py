@@ -44,16 +44,6 @@ def uploadPage(address):
 
 @app.route("/<address>/upload",methods=["POST"])
 def upload(address):
-<<<<<<< HEAD
-	result = Account(address)
-	#try:
-	a=User(result.infomation()['owner'],request.form["password"])
-	result.upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
-	return redirect(url_for("transactions"))
-	#except:	
-	#	return redirect(url_for("accountPage",address=address))
-	#	
-=======
 	try:
 		result = Account(address, User(request.form["eth-address"], request.form["password"]))
 		result.upload_paper(request.form['paperlink'],request.form['hashcode'],request.form['metadata'])
@@ -61,17 +51,14 @@ def upload(address):
 	except:	
 		return redirect(url_for("accountPage",address=address))
 		
->>>>>>> e0ead38685a869d1d52c49953e0785058ea9d7fb
 	
 	
 #修改個人資料頁面
 @app.route("/<address>/update",methods=["GET"])
 def updatePage(address):
-	result = Account(address)
 	return render_template("修改個人資料頁面.html",Address=result.infomation()['owner'],accountAddr=address)
 @app.route("/<address>/update",methods=["POST"])
 def update(address):
-	result = Account(address)
 	try:
 		'''修改個人資料'''
 		result.infomation()['metadata']=request.form['personinfo']
@@ -85,14 +72,9 @@ def update(address):
 @app.route("/<address>/papers",methods=["GET"])
 def papers(address):
 	result = Account(address)
-<<<<<<< HEAD
-	if len(result.papers_list())>0:
-		p=len(result.papers_list())-1;
-=======
 	paper_list = result.papers_list()
 	if len(paper_list)>0:
 		p=len(paper_list)-1;
->>>>>>> e0ead38685a869d1d52c49953e0785058ea9d7fb
 	link=[]
 	hashcode=[]
 	metadata=[]
@@ -132,11 +114,11 @@ def invitePage(address):
 	return render_template("邀請申請頁面.html",Address=result.infomation()['owner'],accountAddr=address,paperAddr=paperAddr)
 @app.route("/<address>/invite",methods=["POST"])
 def invite(address):
-	result = Account(address)
-	toinvite=ModelRoot.find_account(User(request.form['toinvite']))
+	result=Account(address)
+	toinvite=User(request.form['toinvite']).address
 	price=request.form['price']
-	i = two.invite_review(toinvite, result.papers_list()[0] ,price)
-	return (i.infomation(), i.reviewer().address, i.sender().address, i.paper().infomation())
+	result.invite_review(toinvite, result.papers_list()[0] ,price)
+	return redirect(url_for("transactions"))
 
 #查看所有發出的邀請頁面
 @app.route("/<address>/invites",methods=["GET"])
@@ -157,17 +139,17 @@ def invitesPage(address):
 	return render_template("查看所有發出的邀請頁面.html",Address=result.infomation()['owner'],accountAddr=address,p=p,link=link,hashcode=hashcode,metadata=metadata,reviewer=reviewer)
 @app.route("/<address>/invites",methods=["POST"])
 def invites(address):	
-	result = Account(address)
 	try:
-		a=User(result.infomation()['owner'],request.form["password"])
-		result.invites_list()[i].cancel_from()
+		result=Account(address)
+		check = Account(address, User(request.form["eth-address"], request.form["password"]))
+		result.invites_list()[0].cancel_from()		
 		return redirect(url_for("transactions"))
 	except:	
-		return redirect(url_for("invitesPage",address=address))
+		return redirect(url_for("invitesPage",address=result.address))
 #查看所有收到的邀請頁面
 @app.route("/<address>/requests",methods=["GET"])
 def requestsPage(address):
-	result = Account(address)
+	result=Account(address)
 	if len(result.request_list())>0:
 		p=len(result.request_list())-1
 	
@@ -187,31 +169,31 @@ def requestsPage(address):
 
 @app.route("/<address>/requests",methods=["POST"])
 def requests(address):	
-	result = Account(address)
 	try:
-		a=User(result.infomation()['owner'],request.form["password"])
-		result.invites_list()[i].cancel_from()
+		result = Account(address)
+		check = Account(address, User(request.form["eth-address"], request.form["password"]))
+		result.request_list()[0].cancel_from()		
 		return redirect(url_for("transactions"))
 	except:	
-		return redirect(url_for("invitesPage",address=address))
-
+		return redirect(url_for("requestsPage",address=result.address))
+		
 @app.route("/<address>/requests/<inviteAddr>",methods=["GET"])
 def reviewPage(address,inviteAddr):
-	result = Account(address)
+	result=Account(address)
 	p=len(result.request_list())-1;
 	for i in range(p):
 		if inviteAddr==result.request_list()[i].address:
 			paperAddr=result.request_list()[i].paper().address
 			sender=result.request_list()[i].sender().address
 	return render_template("審查頁面.html",Address=result.infomation()['owner'],accountAddr=address,paperAddr=paperAddr,sender=sender)
+
 @app.route("/<address>/requests/<inviteAddr>",methods=["POST"])
 def review(address,inviteAddr):
-	result = Account(address)
-	try:
-		a=User(result.infomation()['owner'],request.form["password"])
-		#result.invites_list()[i].cancel_from()
-		return redirect(url_for("transactions"))
-	except:	
-		return redirect(url_for("invitesPage",address=address))
+	result=Account(address)
+	review=request.form["review"]
+	
+	result.done_review(result.request_list()[0],,review)
+	return redirect(url_for("transactions"))
+
 if __name__=="__main__":	
 	app.run(debug=True)
